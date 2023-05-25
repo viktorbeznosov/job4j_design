@@ -1,26 +1,24 @@
 package ru.job4j.collection;
 
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 
 public class SimpleLinkedList<E> implements LinkedList<E> {
 
     private int size = 0;
     private int modCount = 0;
     private Node<E> head;
-    private Node<E> last;
 
     @Override
     public void add(E value) {
         final Node<E> newNode = new Node<>(value, null);
         if (head == null) {
             head = newNode;
-            last = head;
         } else {
-            last.next = newNode;
-            last = newNode;
+            Node<E> current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
         }
         size++;
         modCount++;
@@ -42,8 +40,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-            private int index = 0;
-
             private int expectedModCount = modCount;
 
             private Node<E> current = head;
@@ -54,7 +50,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
                 if (modCount > expectedModCount) {
                     throw new ConcurrentModificationException();
                 }
-                return index < size;
+                return current != null;
             }
 
             @Override
@@ -64,7 +60,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
                 }
                 returned = current;
                 current = current.next;
-                index++;
 
                 return returned.item;
             }
@@ -82,6 +77,8 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     }
 
     public static void main(String[] args) {
+        Queue<Integer> queue = new PriorityQueue<>();
+
         LinkedList<Integer> list = new SimpleLinkedList<>();
         list.add(1);
         list.add(2);
