@@ -2,19 +2,17 @@ package ru.job4j.collection;
 
 import java.util.*;
 
-public class SimpleLinkedList<E> implements LinkedList<E> {
-
+public class ForwardLinked<T> implements Iterable<T> {
     private int size = 0;
     private int modCount = 0;
-    private Node<E> head;
+    private Node<T> head;
 
-    @Override
-    public void add(E value) {
-        final Node<E> newNode = new Node<>(value, null);
+    public void add(T value) {
+        final ForwardLinked.Node<T> newNode = new ForwardLinked.Node<>(value, null);
         if (head == null) {
             head = newNode;
         } else {
-            Node<E> current = head;
+            ForwardLinked.Node<T> current = head;
             while (current.next != null) {
                 current = current.next;
             }
@@ -24,10 +22,9 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         modCount++;
     }
 
-    @Override
-    public E get(int index) {
+    public T get(int index) {
         Objects.checkIndex(index, size);
-        Node<E> current = head;
+        ForwardLinked.Node<T> current = head;
         int counter = 0;
         while (counter < index) {
             current = current.next;
@@ -37,13 +34,25 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         return current.item;
     }
 
+    public T deleteFirst() {
+        if (head == null) {
+            throw new NoSuchElementException();
+        }
+        T returned = head.item;
+        Node<T> h = head.next;
+        head.next = null;
+        head = h;
+
+        return returned;
+    }
+
     @Override
-    public Iterator<E> iterator() {
-        return new Iterator<E>() {
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
             private int expectedModCount = modCount;
 
-            private Node<E> current = head;
-            private Node<E> returned;
+            private ForwardLinked.Node<T> current = head;
+            private ForwardLinked.Node<T> returned;
 
             @Override
             public boolean hasNext() {
@@ -54,7 +63,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
             }
 
             @Override
-            public E next() {
+            public T next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
@@ -66,31 +75,13 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         };
     }
 
-    private static class Node<E> {
-        private E item;
-        private Node<E> next;
+    private static class Node<T> {
+        private T item;
+        private ForwardLinked.Node<T> next;
 
-        Node(E element, Node<E> next) {
+        Node(T element, ForwardLinked.Node<T> next) {
             this.item = element;
             this.next = next;
-        }
-    }
-
-    public static void main(String[] args) {
-        LinkedList<Integer> list = new SimpleLinkedList<>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
-
-        System.out.println(list.get(0));
-        System.out.println(list.get(1));
-        System.out.println(list.get(2));
-        System.out.println(list.get(3));
-        System.out.println("---------");
-        Iterator<Integer> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            System.out.println(iterator.next());
         }
     }
 }
