@@ -22,6 +22,11 @@ public class ForwardLinked<T> implements Iterable<T> {
         modCount++;
     }
 
+    public void addFirst(T value) {
+        final ForwardLinked.Node<T> newNode = new ForwardLinked.Node<>(value, head);
+        head = newNode;
+    }
+
     public T get(int index) {
         Objects.checkIndex(index, size);
         ForwardLinked.Node<T> current = head;
