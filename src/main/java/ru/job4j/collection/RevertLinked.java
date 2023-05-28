@@ -23,14 +23,16 @@ public class RevertLinked<T> implements Iterable<T> {
         Node<T> next;
         Node<T> prev = null;
         Node<T> curr = head;
+        int counter = 0;
         while (curr != null) {
             next = curr.next;
             curr.next = prev;
             prev = curr;
             curr = next;
+            counter++;
         }
         head = prev;
-        return head != null && head.next != null;
+        return counter > 1;
     }
 
     @Override
