@@ -32,9 +32,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private int getIndexByKey(K key) {
-        int hash = key != null ? hash(key.hashCode()) : 0;
-        int index = indexFor(hash);
-        return index;
+        return indexFor(Objects.hashCode(key));
     }
 
     private int hash(int hashCode) {
@@ -57,22 +55,23 @@ public class SimpleMap<K, V> implements Map<K, V> {
         table = newTable;
     }
 
+    private boolean checkKey(K key) {
+        int index = getIndexByKey(key);
+        return table[index] != null && (key != null && key.equals(table[index].key) || key == null  && table[index].key == null);
+    }
+
     @Override
     public V get(K key) {
         int index = getIndexByKey(key);
-
-        boolean condition = table[index] != null && key != null && key.equals(table[index].key)
-                         || table[index] != null && key == null  && table[index].key == null;
-
-        return condition ? table[index].value : null;
+        return checkKey(key) ? table[index].value : null;
     }
 
     @Override
     public boolean remove(K key) {
         boolean result = false;
-
         int index = getIndexByKey(key);
-        if (table[index] != null) {
+
+        if (checkKey(key)) {
             table[index] = null;
             modCount++;
             result = true;
