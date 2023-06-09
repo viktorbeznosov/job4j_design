@@ -27,12 +27,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 expand();
             }
         }
-
         return result;
     }
 
     private int getIndexByKey(K key) {
-        return indexFor(Objects.hashCode(key));
+        int hash = Objects.hashCode(key);
+        return indexFor(hash);
     }
 
     private int hash(int hashCode) {
@@ -55,28 +55,27 @@ public class SimpleMap<K, V> implements Map<K, V> {
         table = newTable;
     }
 
-    private boolean checkKey(K key) {
-        int index = getIndexByKey(key);
-        return table[index] != null && (key != null && key.equals(table[index].key) || key == null  && table[index].key == null);
+    private boolean checkKey(K key, int index) {
+        return table[index] != null
+                && (key != null && Objects.hashCode(key) == Objects.hashCode(table[index].key) && key.equals(table[index].key)
+                || key == null  && table[index].key == null);
     }
 
     @Override
     public V get(K key) {
         int index = getIndexByKey(key);
-        return checkKey(key) ? table[index].value : null;
+        return checkKey(key, index) ? table[index].value : null;
     }
 
     @Override
     public boolean remove(K key) {
         boolean result = false;
         int index = getIndexByKey(key);
-
-        if (checkKey(key)) {
+        if (checkKey(key, index)) {
             table[index] = null;
             modCount++;
             result = true;
         }
-
         return result;
     }
 
@@ -84,7 +83,6 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public Iterator<K> iterator() {
         return new Iterator<K>() {
             private int index = 0;
-
             private int expectedModCount = modCount;
 
             @Override
@@ -109,7 +107,6 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private static class MapEntry<K, V> {
-
         K key;
         V value;
 
