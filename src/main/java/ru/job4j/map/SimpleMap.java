@@ -17,8 +17,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean put(K key, V value) {
         boolean result = false;
-        int hash = key != null ? hash(key.hashCode()) : 0;
-        int index = indexFor(hash);
+        int index = getIndexByKey(key);
         if (table[index] == null) {
             table[index] = new MapEntry<>(key, value);
             count++;
@@ -32,8 +31,14 @@ public class SimpleMap<K, V> implements Map<K, V> {
         return result;
     }
 
+    private int getIndexByKey(K key) {
+        int hash = key != null ? hash(key.hashCode()) : 0;
+        int index = indexFor(hash);
+        return index;
+    }
+
     private int hash(int hashCode) {
-        return (hashCode >>> capacity) ^ hashCode;
+        return (hashCode >>> 16) ^ hashCode;
     }
 
     private int indexFor(int hash) {
@@ -42,34 +47,37 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     private void expand() {
         capacity *= 2;
-        table = Arrays.copyOf(table, capacity);
+        MapEntry<K, V>[] newTable = new MapEntry[capacity];
+        for (MapEntry<K, V> entry: table) {
+            if (entry != null) {
+                int index = getIndexByKey(entry.key);
+                newTable[index] = entry;
+            }
+        }
+        table = newTable;
     }
 
     @Override
     public V get(K key) {
-        V result = null;
+        int index = getIndexByKey(key);
 
-        for (MapEntry<K, V> entry: table) {
-            if (entry != null && entry.key == key) {
-                result = entry.value;
-                break;
-            }
-        }
+        boolean condition = table[index] != null && key != null && key.equals(table[index].key)
+                         || table[index] != null && key == null  && table[index].key == null;
 
-        return result;
+        return condition ? table[index].value : null;
     }
 
     @Override
     public boolean remove(K key) {
         boolean result = false;
-        if (get(key) != null) {
-            int hash = key != null ? hash(key.hashCode()) : 0;
-            int index = indexFor(hash);
+
+        int index = getIndexByKey(key);
+        if (table[index] != null) {
             table[index] = null;
-            count--;
             modCount++;
             result = true;
         }
+
         return result;
     }
 
@@ -117,8 +125,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
         map.put(1, "1");
         map.put(2, "2");
         map.put(3, "3");
-        map.put(4, "4");
-        map.put(null, "0000");
-        map.put(5, "5");
+        map.put(6, "6");
+        map.put(0, "0000");
+        map.put(7, "7");
+
+        System.out.println(map.get(7));
+        System.out.println(map.get(null));
+        System.out.println(map.get(0));
     }
 }
