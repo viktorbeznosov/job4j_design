@@ -1,38 +1,43 @@
 package ru.job4j.question;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Analize {
 
     public static Info diff(Set<User> previous, Set<User> current) {
-        Map<Integer, String> previousMap = previous.stream().collect(Collectors.toMap(e -> e.getId(), e -> e.getName()));
-        Map<Integer, String> currentMap = current.stream().collect(Collectors.toMap(e -> e.getId(), e -> e.getName()));
+        Map<Integer, String> previousMap = new HashMap<>();
+        Map<Integer, String> currentMap = new HashMap<>();
+        previous.forEach(e -> previousMap.put(e.getId(), e.getName()));
+        current.forEach(e -> currentMap.put(e.getId(), e.getName()));
 
-        int added = (int) currentMap
-                .keySet()
-                .stream()
-                .filter(e -> !previousMap.keySet().contains(e))
-                .count();
+        int added = 0;
+        for (int key: currentMap.keySet()) {
+            if (!previousMap.keySet().contains(key)) {
+                added++;
+            }
+        }
 
-        int deleted = (int) previousMap
-                .keySet()
-                .stream()
-                .filter(e -> !currentMap.keySet().contains(e))
-                .count();
+        int deleted = 0;
+        for (int key: previousMap.keySet()) {
+            if (!currentMap.keySet().contains(key)) {
+                deleted++;
+            }
+        }
 
-        int changed = (int) currentMap
-                .keySet()
-                .stream()
-                .filter(previousMap.keySet()::contains)
-                .collect(Collectors.toList())
-                .stream()
-                .filter(e -> !previousMap.get(e).equals(currentMap.get(e)))
-                .count();
+        List<Integer> identicalKeys = new LinkedList<>();
+        for (int key: currentMap.keySet()) {
+            if (previousMap.keySet().contains(key)) {
+                identicalKeys.add(key);
+            }
+        }
+        int changed = 0;
+        for (int key: identicalKeys) {
+            if (!previousMap.get(key).equals(currentMap.get(key))) {
+                changed++;
+            }
+        }
 
         return new Info(added, changed, deleted);
     }
