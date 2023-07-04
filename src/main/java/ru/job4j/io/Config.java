@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -18,25 +19,24 @@ public class Config {
         this.path = path;
     }
 
-    Predicate<String> check = s -> {
+    BiPredicate<String, String[]> check = (s, elements) -> {
         return s.isEmpty()
                 || s.startsWith("#")
-                || s.contains("=") && !s.split("=", 2)[0].isEmpty() && !s.split("=", 2)[1].isEmpty();
+                || s.contains("=") && !elements[0].isEmpty() && !elements[1].isEmpty();
     };
 
     public void load() {
         try (BufferedReader in = new BufferedReader(new FileReader(path))) {
             in.lines()
-               .peek(e -> {
-                   if (!check.test(e)) {
+               .filter(e -> !e.startsWith("#") && !e.isEmpty())
+               .forEach(e -> {
+                   String[] lineElements = e.split("=", 2);
+                   if (!check.test(e, lineElements)) {
                        throw new IllegalArgumentException("Invalid config file");
                    }
-               })
-               .collect(Collectors.toList())
-               .stream()
-               .filter(e -> !e.startsWith("#") && !e.isEmpty())
-               .forEach(e -> values.put(e.split("=", 2)[0], e.split("=", 2)[1]));
-        } catch (Exception e) {
+                   values.put(lineElements[0], lineElements[1]);
+               });
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -27,20 +27,26 @@ class ConfigTest {
     void whenPairWithStringWithoutKey() {
         String path = "./data/pair_with_string_without_key.properties";
         Config config = new Config(path);
-        assertThat(catchIllegalArgumentException(config::load));
+        assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Invalid config file");
     }
 
     @Test
     void whenPairWithStringWithoutValue() {
         String path = "./data/pair_with_string_without_value.properties";
         Config config = new Config(path);
-        assertThat(catchIllegalArgumentException(config::load));
+        assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Invalid config file");
     }
 
     @Test
     void whenPairWithoutEqualSign() {
         String path = "./data/pair_without_equal_sign.properties";
         Config config = new Config(path);
-        assertThat(catchIllegalArgumentException(config::load));
+        assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Invalid config file");
     }
 }
