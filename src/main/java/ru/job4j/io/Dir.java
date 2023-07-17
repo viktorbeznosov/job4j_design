@@ -22,7 +22,7 @@ public class Dir {
     }
 
     public static void checkArgs(String[] args) {
-        if (args.length == 0) {
+        if (args.length < 2) {
             throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
         }
     }
