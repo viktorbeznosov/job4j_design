@@ -24,5 +24,11 @@ public class Search {
         if (args.length < 2) {
             throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
         }
+        if (!Files.exists(Paths.get(args[0]))) {
+            throw new IllegalArgumentException("Folder is not exists");
+        }
+        if (!args[1].startsWith(".")) {
+            throw new IllegalArgumentException("Invalid file extension");
+        }
     }
 }
