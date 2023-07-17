@@ -4,8 +4,7 @@ import java.io.File;
 
 public class Dir {
     public static void main(String[] args) {
-        checkArgs(args);
-        File file = new File(args[0]);
+        File file = new File("/home/viktor/IdeaProjects");
         if (!file.exists()) {
             throw new IllegalArgumentException(String.format("Not exist %s", file.getAbsoluteFile()));
         }
@@ -14,16 +13,8 @@ public class Dir {
         }
         System.out.println(String.format("size : %s", file.getTotalSpace()));
         for (File subfile : file.listFiles()) {
-            if (subfile.getName().endsWith(args[1])) {
-                System.out.printf("Имя файла: %s. Размер файла: %d", subfile.getName(), subfile.length());
-                System.out.println(System.lineSeparator());
-            }
-        }
-    }
-
-    public static void checkArgs(String[] args) {
-        if (args.length < 2) {
-            throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
+            System.out.printf("Имя файла: %s. Размер файла: %d", subfile.getName(), subfile.length());
+            System.out.println(System.lineSeparator());
         }
     }
 }
