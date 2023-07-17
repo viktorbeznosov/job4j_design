@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
     private Map<FileProperty, List<Path>> files = new HashMap<>();
@@ -20,23 +21,18 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
         if (files.get(fileProperty) != null) {
             files.get(fileProperty).add(file.toAbsolutePath());
         } else {
-            List<Path> tmp = new ArrayList<>();
-            tmp.add(file.toAbsolutePath());
-            files.put(fileProperty, tmp);
+            files.put(fileProperty, new ArrayList<>(List.of(file.toAbsolutePath())));
         }
 
         return super.visitFile(file, attrs);
     }
 
-    public List<Path> getPaths() {
-        List<Path> paths = new LinkedList<>();
-
-        files.entrySet()
+    public List getPaths() {
+        return files.values()
                 .stream()
-                .filter(e -> e.getValue().size() > 1)
-                .forEach(e -> paths.addAll(e.getValue()));
-
-        return paths;
+                .filter(e -> e.size() > 1)
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
     }
 
     public static void main(String[] args) throws IOException {
