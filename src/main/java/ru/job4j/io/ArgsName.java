@@ -9,31 +9,30 @@ public class ArgsName {
 
     public String get(String key) {
         if (!values.keySet().contains(key)) {
-            StringBuilder builder = new StringBuilder();
-            builder.append("This key: ").append("'").append(key).append("'").append(" is missing");
-            throw  new IllegalArgumentException(builder.toString());
+            String message = String.format("This key: '%s' is missing", key);
+            throw  new IllegalArgumentException(message);
         }
         return values.get(key);
     }
 
     private String[] getCheckedArgs(String str) {
-        String message = "Error: This argument '" + str + "'";
+        String message;
         String[] elems = str.split("=", 2);
         if (!str.startsWith("-")) {
-            message += " does not start with a '-' character";
+            message = String.format("Error: This argument '%s' does not start with a '-' character", str);
             throw new IllegalArgumentException(message);
         }
         if (elems.length < 2) {
-            message += " does not contain an equal sign";
+            message = String.format("Error: This argument '%s' does not contain an equal sign", str);
             throw new IllegalArgumentException(message);
         }
         elems[0] = elems[0].replaceFirst("-", "");
         if (elems[0].isEmpty()) {
-            message += " does not contain a key";
+            message = String.format("Error: This argument '%s' does not contain a key", str);
             throw new IllegalArgumentException(message);
         }
         if (elems[1].isEmpty()) {
-            message += " does not contain a value";
+            message = String.format("Error: This argument '%s' does not contain a value", str);
             throw new IllegalArgumentException(message);
         }
 
