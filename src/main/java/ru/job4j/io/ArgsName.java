@@ -16,44 +16,43 @@ public class ArgsName {
         return values.get(key);
     }
 
-    private void checkArgs(String[] args) {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Arguments not passed to program");
+    private String[] getCheckedArgs(String str) {
+        String message = "Error: This argument '" + str + "'";
+        String[] elems = str.split("=", 2);
+        if (!str.startsWith("-")) {
+            message += " does not start with a '-' character";
+            throw new IllegalArgumentException(message);
         }
-        for (String str: args) {
-            StringBuilder builder = new StringBuilder();
-            builder.append("Error: This argument ").append("'").append(str).append("'");
-            String[] elems = str.split("=", 2);
-            if (!str.startsWith("-")) {
-                builder.append(" does not start with a '-' character");
-                throw new IllegalArgumentException(builder.toString());
-            }
-            if (elems.length < 2) {
-                builder.append(" does not contain an equal sign");
-                throw new IllegalArgumentException(builder.toString());
-            }
-            if (elems[0].replaceFirst("-", "").isEmpty()) {
-                builder.append(" does not contain a key");
-                throw new IllegalArgumentException(builder.toString());
-            }
-            if (elems[1].isEmpty()) {
-                builder.append(" does not contain a value");
-                throw new IllegalArgumentException(builder.toString());
-            }
+        if (elems.length < 2) {
+            message += " does not contain an equal sign";
+            throw new IllegalArgumentException(message);
         }
+        elems[0] = elems[0].replaceFirst("-", "");
+        if (elems[0].isEmpty()) {
+            message += " does not contain a key";
+            throw new IllegalArgumentException(message);
+        }
+        if (elems[1].isEmpty()) {
+            message += " does not contain a value";
+            throw new IllegalArgumentException(message);
+        }
+
+        return elems;
     }
 
     private void parse(String[] args) {
-        checkArgs(args);
         for (String str: args) {
-            String[] elems = str.split("=", 2);
-            String key = elems[0].replaceFirst("-", "");
+            String[] elems = getCheckedArgs(str);
+            String key = elems[0];
             String value = elems[1];
             values.put(key, value);
         }
     }
 
     public static ArgsName of(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Arguments not passed to program");
+        }
         ArgsName names = new ArgsName();
         names.parse(args);
         return names;
