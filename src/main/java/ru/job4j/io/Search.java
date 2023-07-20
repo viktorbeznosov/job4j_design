@@ -20,7 +20,7 @@ public class Search {
         return searcher.getPaths();
     }
 
-    public static void checkArgs(String[] args) {
+    private static void checkArgs(String[] args) {
         if (args.length < 2) {
             throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
         }
