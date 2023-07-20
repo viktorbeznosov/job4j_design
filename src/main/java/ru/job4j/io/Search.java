@@ -40,8 +40,7 @@ public class Search {
         if (result) {
             str = str.replaceFirst(".", "");
             for (char c: str.toCharArray()) {
-                System.out.println((int) c);
-                if (((int) c < 141 || (int) c > 172) && ((int) c < 101 || (int) c > 132)) {
+                if (((int) c < 65 || (int) c > 90) && ((int) c < 97 || (int) c > 122)) {
                     result = false;
                     break;
                 }
