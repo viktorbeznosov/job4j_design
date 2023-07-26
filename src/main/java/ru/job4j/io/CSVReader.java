@@ -52,47 +52,36 @@ public class CSVReader {
         }
     }
 
-    private static void checkParams(String[] args) {
-        List<String> keys = new ArrayList<>();
-        if (args.length < 4) {
-            throw new IllegalArgumentException("Incorrect arguments count");
+    private static void checkParams(ArgsName argsName) {
+        if (argsName.get("path").isEmpty() || !Files.exists(Path.of(argsName.get("path")))) {
+            throw new IllegalArgumentException("Incorrect path argument or CSV file does not exists");
         }
-        for (String param: args) {
-            if (!param.contains("=")) {
-                throw new IllegalArgumentException("Argument doesn't contains equal sign");
-            }
-            String[] items = param.split("=");
-            String key = items[0].replaceFirst("-", "");
-            String value = items[1];
-            switch (key) {
-                case "path":
-                    if (!Files.exists(Path.of(value))) {
-                        throw new IllegalArgumentException("CSV file does not exists");
-                    }
-                    break;
-                case "out":
-                    if (!"stdout".equals(value) && !Files.exists(Path.of(value))) {
-                        throw new IllegalArgumentException("Incorrect out parameter or output file does not exists");
-                    }
-                    break;
-                case "filter":
-                    if (value.split(",").length == 0 || value.startsWith(",") || value.endsWith(",")) {
-                        throw new IllegalArgumentException("Incorrect filters parameter");
-                    }
-                    break;
-                default:
-                    break;
-            }
-            keys.add(key);
+
+        if (argsName.get("out").isEmpty()
+                || (!"stdout".equals(argsName.get("out")) && !Files.exists(Path.of(argsName.get("out"))))
+        ) {
+            throw new IllegalArgumentException("Incorrect out parameter or output file does not exists");
         }
-        if (!keys.containsAll(List.of("path", "delimiter", "out", "filter"))) {
-            throw new IllegalArgumentException("There are not enough necessary arguments");
+
+        if (argsName.get("filter").isEmpty()
+                || argsName.get("filter").split(",").length == 0
+                || argsName.get("filter").startsWith(",")
+                || argsName.get("filter").endsWith(",")
+        ) {
+            throw new IllegalArgumentException("Incorrect filters parameter");
+        }
+
+        if (argsName.get("delimiter").isEmpty()) {
+            throw new IllegalArgumentException("Incorrect delimiter parameter");
         }
     }
 
     public static void main(String[] args) throws Exception {
-        checkParams(args);
+        if (args.length < 4) {
+            throw new IllegalArgumentException("Incorrect arguments count");
+        }
         ArgsName argsName = ArgsName.of(args);
+        checkParams(argsName);
         handle(argsName);
     }
 }
