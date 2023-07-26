@@ -1,3 +1,4 @@
-Some string
-10
-1,500000
+age;last_name;education
+20;Smith;Bachelor
+25;Johnson;Undergraduate
+30;Brown;Secondary special
