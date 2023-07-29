@@ -16,10 +16,22 @@ public class EchoServer {
                              new InputStreamReader(socket.getInputStream()))) {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
-                        Pattern pattern = Pattern.compile("msg=Bye");
+                        Pattern pattern = Pattern.compile("[\\?|&]msg=\\w+");
                         Matcher matcher = pattern.matcher(str);
                         if (matcher.find()) {
-                            server.close();
+                            String[] messageElems = matcher.group().split("=");
+                            String message = messageElems[1];
+                            switch (message) {
+                                case "Hello":
+                                    out.write("Hello, dear friend!".getBytes());
+                                    break;
+                                case "Exit":
+                                    server.close();
+                                    break;
+                                default:
+                                    out.write("What?".getBytes());
+                                    break;
+                            }
                         }
                         System.out.println(str);
                     }
