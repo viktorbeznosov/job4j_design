@@ -1,0 +1,7 @@
+2023-08-01 21:51:39,998  INFO ru.job4j.io.UsageLog4j:main:10 - info
+2023-08-01 21:51:40,000 DEBUG ru.job4j.io.UsageLog4j:main:11 - debug
+2023-08-01 21:51:40,000  WARN ru.job4j.io.UsageLog4j:main:12 - warn
+2023-08-01 21:51:40,000 ERROR ru.job4j.io.UsageLog4j:main:13 - error
+2023-08-01 21:52:25,162 ERROR ru.job4j.io.UsageLog4j:main:13 - Exception in log example
+java.lang.Exception: Not supported code
+	at ru.job4j.io.UsageLog4j.main(UsageLog4j.java:11)
