@@ -1,0 +1,14 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<product name="Acer Aspire 1 A115-22-R2DZ" price="28990" available="true">
+    <categories>
+        <category>Notebooks</category>
+        <category>Computers</category>
+    </categories>
+    <salesManager sex="false" age="30">
+        <contact phone="11-111"/>
+        <statuses>
+            <status>Worker</status>
+            <status>Married</status>
+        </statuses>
+    </salesManager>
+</product>
