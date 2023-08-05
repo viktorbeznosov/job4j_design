@@ -41,7 +41,7 @@ public class EchoServer {
                     }
                     out.flush();
                 } catch (Exception e) {
-                    LOG.error("Socket error!", e);
+                    LOG.error("Socket error", e);
                 }
             }
         } catch (Exception e) {
