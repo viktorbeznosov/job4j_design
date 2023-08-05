@@ -5,3 +5,9 @@
 2023-08-01 21:52:25,162 ERROR ru.job4j.io.UsageLog4j:main:13 - Exception in log example
 java.lang.Exception: Not supported code
 	at ru.job4j.io.UsageLog4j.main(UsageLog4j.java:11)
+2023-08-05 12:40:49,590 ERROR ru.job4j.io.UsageLog4j:main:13 - Exception in log example
+java.lang.Exception: Not supported code
+	at ru.job4j.io.UsageLog4j.main(UsageLog4j.java:11)
+2023-08-05 12:43:50,471 ERROR ru.job4j.io.UsageLog4j:main:13 - Exception in log example
+java.lang.Exception: Not supported code
+	at ru.job4j.io.UsageLog4j.main(UsageLog4j.java:11)
