@@ -31,8 +31,8 @@ public class Main {
 
         final String noteBookJson =
              "{"
-                + "\"name\": \"Lenovo IdeaPad 3 15ITL05\","
-                + "\"price\": 41990,"
+                + "\"name\": \"Acer Aspire 1 A115-22-R2DZ\","
+                + "\"price\": 28990,"
                 + "\"available\": true,"
                 + "\"categories\": ["
                 +    "\"Notebooks\","
