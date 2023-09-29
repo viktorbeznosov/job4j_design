@@ -23,5 +23,5 @@ create table if not exists human_country (
 create table if not exists capitals (
     id serial primary key,
     name varchar,
-    country_id int references countries(id)
+    country_id int references countries(id) unique not null
 );
