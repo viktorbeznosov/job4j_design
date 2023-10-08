@@ -12,17 +12,18 @@ $$
     BEGIN
         update products
         set price = price - price * 0.2
-        where count <= 5 AND id = new.id;
+        where id = (select id from inserted) and count <= 5;
         return NEW;
     END;
 $$
-LANGUAGE 'plpgsql';
+    LANGUAGE 'plpgsql';
 
 create trigger discount_trigger
-after insert
-on products
-for each row
+after insert on products
+referencing new table as inserted
+for each statement
 execute procedure discount();
+
 
 insert into products (name, producer, count, price) VALUES ('product_3', 'producer_3', 8, 115);
 insert into products (name, producer, count, price) VALUES ('product_1', 'producer_1', 3, 50);
@@ -40,7 +41,7 @@ $$
         return new;
     END;
 $$
-LANGUAGE 'plpgsql';
+    LANGUAGE 'plpgsql';
 
 create trigger tax_trigger
 after insert on products
@@ -59,7 +60,7 @@ $$
         return new;
     END;
 $$
-LANGUAGE 'plpgsql';
+    LANGUAGE 'plpgsql';
 
 create trigger tax_trigger_before_insert
 before insert
@@ -91,4 +92,8 @@ after insert
 on products
 for each row
 execute procedure insert_history();
+
+
+--   drop trigger insert_history_trigger on products;
+
 
