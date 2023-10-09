@@ -9,19 +9,19 @@ create table products (
 create or replace function discount()
     returns trigger as
 $$
-    BEGIN
-        update products
-        set price = price - price * 0.2
-        where id = (select id from inserted) and count <= 5;
-        return NEW;
-    END;
+BEGIN
+    update products
+    set price = price - price * 0.2
+    where id = (select id from inserted) and count <= 5;
+    return NEW;
+END;
 $$
     LANGUAGE 'plpgsql';
 
 create trigger discount_trigger
-after insert on products
-referencing new table as inserted
-for each statement
+    after insert on products
+    referencing new table as inserted
+    for each statement
 execute procedure discount();
 
 
@@ -34,40 +34,42 @@ drop trigger discount_trigger on products;
 create or replace function tax()
     returns trigger as
 $$
-    BEGIN
-        update products
-        set price = price - price * 0.2
-        where id = (select id from inserted) and count <= 5;
-        return new;
-    END;
+BEGIN
+    update products
+    set price = price - price * 0.2
+    where id = (select id from inserted) and count <= 5;
+    return new;
+END;
 $$
     LANGUAGE 'plpgsql';
 
 create trigger tax_trigger
-after insert on products
-referencing new table as inserted
-for each statement
+    after insert on products
+    referencing new table as inserted
+    for each statement
 execute procedure tax();
 
 
 create or replace function tax_before()
     returns trigger as
 $$
-    BEGIN
-        update products
-        set price = price - price * 0.2
-        where id = new.id and count <= 5;
-        return new;
-    END;
+begin
+    if (new.count <= 5) then
+    new.price = new.price + new.price * 0.2;
+    else new.price = new.price;
+    end if;
+    return new;
+END;
 $$
     LANGUAGE 'plpgsql';
 
 create trigger tax_trigger_before_insert
-before insert
-on products
-for each row
+    before insert
+    on products
+    for each row
 execute procedure tax_before();
 
+drop trigger tax_trigger_before_insert on products;
 
 create table history_of_price (
     id serial primary key,
@@ -79,18 +81,18 @@ create table history_of_price (
 create or replace function insert_history()
     returns trigger as
 $$
-    BEGIN
-        insert into history_of_price (name, price, date)
-        values (new.name, new.price, now());
-        return new;
-    END;
+BEGIN
+    insert into history_of_price (name, price, date)
+    values (new.name, new.price, now());
+    return new;
+END;
 $$
     LANGUAGE 'plpgsql';
 
 create trigger insert_history_trigger
-after insert
-on products
-for each row
+    after insert
+    on products
+    for each row
 execute procedure insert_history();
 
 
