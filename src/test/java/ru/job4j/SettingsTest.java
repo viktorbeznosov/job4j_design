@@ -21,7 +21,7 @@ class SettingsTest {
         try (InputStream io = loader.getResourceAsStream("app.properties")) {
             settings.load(io);
         }
-        String value = settings.getValue("db.driver");
+        String value = settings.getValue("hibernate.connection.driver_class");
         assertThat(value.equals("org.postgresql.Driver"));
     }
 }
