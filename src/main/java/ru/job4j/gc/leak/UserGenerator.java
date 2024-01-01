@@ -11,8 +11,8 @@ public class UserGenerator implements Generate {
     public final String pathSurnames = "src/main/java/ru/job4j/gc/leak/files/surnames.txt";
     public final String pathPatrons = "src/main/java/ru/job4j/gc/leak/files/patr.txt";
 
-    public static final String SEPARATOR = " ";
-    public static final int NEW_USERS = 1000;
+    public final String separator = " ";
+    public final int newUsers = 1000;
 
     public List<String> names;
     public List<String> surnames;
@@ -28,11 +28,14 @@ public class UserGenerator implements Generate {
     @Override
     public void generate() {
         users.clear();
-        for (int i = 0; i < NEW_USERS; i++) {
-            users.add(new User(
-                    surnames.get(random.nextInt(surnames.size())) + SEPARATOR
-                            + names.get(random.nextInt(names.size())) + SEPARATOR
-                            + patrons.get(random.nextInt(patrons.size()))));
+        for (int i = 0; i < newUsers; i++) {
+            String user = String.format(
+                "%s%s%s%s%s",
+                surnames.get(random.nextInt(surnames.size())), separator,
+                names.get(random.nextInt(names.size())), separator,
+                patrons.get(random.nextInt(patrons.size()))
+            );
+            users.add(new User(user));
         }
     }
 
