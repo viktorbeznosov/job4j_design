@@ -1,0 +1,64 @@
+[2024-01-01T14:26:45.611+0300][info][gc] Using The Z Garbage Collector
+[2024-01-01T14:26:45.749+0300][info][gc] GC(0) Garbage Collection (Warmup) 4M(25%)->4M(25%)
+[2024-01-01T14:26:45.838+0300][info][gc] GC(1) Garbage Collection (Warmup) 4M(25%)->6M(38%)
+[2024-01-01T14:26:45.936+0300][info][gc] GC(2) Garbage Collection (Warmup) 6M(38%)->4M(25%)
+[2024-01-01T14:26:46.959+0300][info][gc] GC(3) Garbage Collection (Proactive) 6M(38%)->6M(38%)
+[2024-01-01T14:26:49.948+0300][info][gc] GC(4) Garbage Collection (Allocation Rate) 12M(75%)->8M(50%)
+[2024-01-01T14:26:50.050+0300][info][gc] GC(5) Garbage Collection (Allocation Rate) 12M(75%)->8M(50%)
+[2024-01-01T14:26:50.146+0300][info][gc] GC(6) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:26:50.250+0300][info][gc] GC(7) Garbage Collection (Allocation Rate) 8M(50%)->6M(38%)
+[2024-01-01T14:26:50.368+0300][info][gc] GC(8) Garbage Collection (Allocation Rate) 6M(38%)->6M(38%)
+[2024-01-01T14:26:50.467+0300][info][gc] GC(9) Garbage Collection (Allocation Rate) 6M(38%)->6M(38%)
+[2024-01-01T14:26:50.567+0300][info][gc] GC(10) Garbage Collection (Allocation Rate) 6M(38%)->6M(38%)
+[2024-01-01T14:26:50.667+0300][info][gc] GC(11) Garbage Collection (Allocation Rate) 6M(38%)->6M(38%)
+[2024-01-01T14:26:51.270+0300][info][gc] GC(12) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:26:51.370+0300][info][gc] GC(13) Garbage Collection (Allocation Rate) 8M(50%)->6M(38%)
+[2024-01-01T14:26:53.547+0300][info][gc] GC(14) Garbage Collection (Proactive) 8M(50%)->6M(38%)
+[2024-01-01T14:26:56.376+0300][info][gc] GC(15) Garbage Collection (Proactive) 8M(50%)->6M(38%)
+[2024-01-01T14:27:00.271+0300][info][gc] GC(16) Garbage Collection (Proactive) 8M(50%)->6M(38%)
+[2024-01-01T14:27:03.377+0300][info][gc] GC(17) Garbage Collection (Proactive) 8M(50%)->6M(38%)
+[2024-01-01T14:27:06.474+0300][info][gc] GC(18) Garbage Collection (Proactive) 8M(50%)->6M(38%)
+[2024-01-01T14:27:09.153+0300][info][gc] GC(19) Garbage Collection (Proactive) 10M(62%)->10M(62%)
+[2024-01-01T14:27:20.018+0300][info][gc] Allocation Stall (main) 17,639ms
+[2024-01-01T14:27:20.019+0300][info][gc] GC(20) Garbage Collection (Allocation Stall) 16M(100%)->12M(75%)
+[2024-01-01T14:27:20.036+0300][info][gc] Allocation Stall (main) 9,864ms
+[2024-01-01T14:27:20.037+0300][info][gc] GC(21) Garbage Collection (Allocation Stall) 16M(100%)->12M(75%)
+[2024-01-01T14:27:20.051+0300][info][gc] Allocation Stall (main) 9,864ms
+[2024-01-01T14:27:20.052+0300][info][gc] GC(22) Garbage Collection (Allocation Stall) 16M(100%)->14M(88%)
+[2024-01-01T14:27:20.063+0300][info][gc] Allocation Stall (main) 8,996ms
+[2024-01-01T14:27:20.064+0300][info][gc] GC(23) Garbage Collection (Allocation Stall) 16M(100%)->16M(100%)
+[2024-01-01T14:27:20.064+0300][info][gc] Allocation Stall (RMI TCP Connection(2)-127.0.0.1) 9,052ms
+[2024-01-01T14:27:20.079+0300][info][gc] Allocation Stall (main) 12,585ms
+[2024-01-01T14:27:20.080+0300][info][gc] GC(24) Garbage Collection (Allocation Stall) 16M(100%)->16M(100%)
+[2024-01-01T14:27:20.080+0300][info][gc] Allocation Stall (RMI TCP Connection(1)-127.0.0.1) 12,578ms
+[2024-01-01T14:27:20.080+0300][info][gc] Allocation Stall (RMI TCP Connection(2)-127.0.0.1) 12,496ms
+[2024-01-01T14:27:20.096+0300][info][gc] Relocation Stall (main) 0,614ms
+[2024-01-01T14:27:20.096+0300][info][gc] GC(25) Garbage Collection (Allocation Stall) 16M(100%)->16M(100%)
+[2024-01-01T14:27:20.096+0300][info][gc] Allocation Stall (main) 13,106ms
+[2024-01-01T14:27:20.096+0300][info][gc] Allocation Stall (RMI TCP Connection(1)-127.0.0.1) 12,813ms
+[2024-01-01T14:27:20.110+0300][info][gc] GC(26) Garbage Collection (Allocation Stall) 16M(100%)->16M(100%)
+[2024-01-01T14:27:20.110+0300][info][gc] Allocation Stall (main) 12,686ms
+[2024-01-01T14:27:20.121+0300][info][gc] GC(27) Garbage Collection (Allocation Stall) 16M(100%)->16M(100%)
+[2024-01-01T14:27:20.121+0300][info][gc] Allocation Stall (RMI TCP Connection(1)-127.0.0.1) 23,634ms
+[2024-01-01T14:27:20.130+0300][info][gc] Allocation Stall (RMI TCP Connection(1)-127.0.0.1) 9,735ms
+[2024-01-01T14:27:20.131+0300][info][gc] Allocation Stall (main) 18,893ms
+[2024-01-01T14:27:20.132+0300][info][gc] GC(28) Garbage Collection (Allocation Stall) 16M(100%)->10M(62%)
+[2024-01-01T14:27:20.242+0300][info][gc] GC(29) Garbage Collection (Allocation Rate) 10M(62%)->8M(50%)
+[2024-01-01T14:27:20.361+0300][info][gc] GC(30) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:27:20.447+0300][info][gc] GC(31) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:27:20.566+0300][info][gc] GC(32) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:27:20.666+0300][info][gc] GC(33) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:27:20.770+0300][info][gc] GC(34) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:27:20.867+0300][info][gc] GC(35) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:27:20.967+0300][info][gc] GC(36) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:27:21.057+0300][info][gc] GC(37) Garbage Collection (Allocation Rate) 8M(50%)->10M(62%)
+[2024-01-01T14:27:21.143+0300][info][gc] GC(38) Garbage Collection (Allocation Rate) 10M(62%)->10M(62%)
+[2024-01-01T14:27:21.269+0300][info][gc] GC(39) Garbage Collection (Allocation Rate) 10M(62%)->8M(50%)
+[2024-01-01T14:27:21.367+0300][info][gc] GC(40) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:27:21.467+0300][info][gc] GC(41) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:27:21.566+0300][info][gc] GC(42) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:27:21.664+0300][info][gc] GC(43) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:27:21.768+0300][info][gc] GC(44) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:27:21.867+0300][info][gc] GC(45) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:27:21.959+0300][info][gc] GC(46) Garbage Collection (Allocation Rate) 8M(50%)->8M(50%)
+[2024-01-01T14:27:24.069+0300][info][gc] GC(47) Garbage Collection (Proactive) 10M(62%)->10M(62%)
