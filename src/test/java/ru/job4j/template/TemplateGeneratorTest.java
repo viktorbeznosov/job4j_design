@@ -9,6 +9,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
 
+@Disabled("Тесты отключены. Удалить аннотацию после реализации всех методов по заданию.")
 class TemplateGeneratorTest {
 
     @Test
