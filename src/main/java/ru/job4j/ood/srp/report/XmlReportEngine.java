@@ -9,6 +9,7 @@ import ru.job4j.ood.srp.store.Store;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -67,11 +68,12 @@ public class XmlReportEngine extends ReportEngine {
         MemoryStore store = new MemoryStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 6500);
-        Employee worker2 = new Employee("Viktor", now, now, 7000);
+        System.out.println(worker.getHired());
+//        Employee worker2 = new Employee("Viktor", now, now, 7000);
         DateTimeParser<Calendar> parser = new ReportDateTimeParser();
-        store.add(worker);
-        store.add(worker2);
-        Report engibe = new XmlReportEngine(store, parser);
-        System.out.println(engibe.generate(s -> true));
+//        store.add(worker);
+//        store.add(worker2);
+//        Report engine = new XmlReportEngine(store, parser);
+//        System.out.println(engine.generate(s -> true));
     }
 }
