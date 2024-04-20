@@ -69,11 +69,11 @@ public class XmlReportEngine extends ReportEngine {
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 6500);
         System.out.println(worker.getHired());
-//        Employee worker2 = new Employee("Viktor", now, now, 7000);
+        Employee worker2 = new Employee("Viktor", now, now, 7000);
         DateTimeParser<Calendar> parser = new ReportDateTimeParser();
-//        store.add(worker);
-//        store.add(worker2);
-//        Report engine = new XmlReportEngine(store, parser);
-//        System.out.println(engine.generate(s -> true));
+        store.add(worker);
+        store.add(worker2);
+        Report engine = new XmlReportEngine(store, parser);
+        System.out.println(engine.generate(s -> true));
     }
 }
