@@ -42,6 +42,7 @@ public class XmlReportEngine extends ReportEngine {
             this.employees = employees;
         }
 
+        @XmlElement(name = "employee")
         public List<Employee> getEmployees() {
             return employees;
         }
