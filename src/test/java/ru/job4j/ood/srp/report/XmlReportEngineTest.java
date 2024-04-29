@@ -21,7 +21,7 @@ class XmlReportEngineTest {
         Employee worker = new Employee("Ivan", now, now, 6500);
         Employee worker2 = new Employee("Viktor", now, now, 7000);
         DateTimeParser<Calendar> parser = new ReportDateTimeParser();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd:MM:yyyy HH:mm");
         store.add(worker);
         store.add(worker2);
         XmlReportEngine engine = new XmlReportEngine(store, parser);
