@@ -6,9 +6,9 @@ import ru.job4j.ood.lsp.store.foodmap.StoreDistributor;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiPredicate;
 
 public class ControlQuality {
 
@@ -19,13 +19,6 @@ public class ControlQuality {
 
     public ControlQuality(Map<PercentInterval, StoreDistributor> map) {
         this.map = map;
-    }
-
-    public float expirationPercent(Food food) {
-        int daysSinceCreation = (int) ChronoUnit.DAYS.between(food.getCreateDate(), LocalDate.now());
-        int daysLeftExpirationDate = (int) ChronoUnit.DAYS.between(LocalDate.now(), food.getExpiryDate());
-        float expirationPercent = daysSinceCreation * 100 / (daysSinceCreation + daysLeftExpirationDate);
-        return expirationPercent;
     }
 
     private boolean intervalCondition(float expirationPercent, PercentInterval interval) {
@@ -39,7 +32,7 @@ public class ControlQuality {
         }
 
         try {
-            float expirationPercent = expirationPercent(food);
+            float expirationPercent = food.getExpirationPercent();
             PercentInterval interval = map.keySet()
                     .stream()
                     .filter(key -> intervalCondition(expirationPercent, key))
@@ -47,8 +40,6 @@ public class ControlQuality {
                     .get();
 
             Store store = map.get(interval).getStore();
-            int discount = map.get(interval).getDiscount();
-            food.setDiscount(discount);
             store.add(food);
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,8 +53,7 @@ public class ControlQuality {
 
         Map<PercentInterval, StoreDistributor> storeDistributorMap = new HashMap<>();
         storeDistributorMap.put(new PercentInterval(0, 25), new StoreDistributor(new Warehouse()));
-        storeDistributorMap.put(new PercentInterval(25, 75), new StoreDistributor(new Shop()));
-        storeDistributorMap.put(new PercentInterval(75, 100), new StoreDistributor(new Shop(), 20));
+        storeDistributorMap.put(new PercentInterval(25, 100), new StoreDistributor(new Shop()));
         storeDistributorMap.put(new PercentInterval(100, 100), new StoreDistributor(new Trash()));
 
         Food apple = new Food("apple", createdDate, expiredDate, 100);

@@ -6,8 +6,6 @@ public class StoreDistributor {
 
     private Store store;
 
-    private int discount;
-
     public StoreDistributor() {
     }
 
@@ -15,16 +13,7 @@ public class StoreDistributor {
         this.store = store;
     }
 
-    public StoreDistributor(Store store, int discount) {
-        this.store = store;
-        this.discount = discount;
-    }
-
     public Store getStore() {
         return store;
-    }
-
-    public int getDiscount() {
-        return discount;
     }
 }

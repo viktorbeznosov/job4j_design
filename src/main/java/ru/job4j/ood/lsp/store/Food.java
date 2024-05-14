@@ -80,4 +80,11 @@ public class Food {
     public int hashCode() {
         return Objects.hash(name, expiryDate, price);
     }
+
+    public float getExpirationPercent() {
+        int daysSinceCreation = (int) ChronoUnit.DAYS.between(getCreateDate(), LocalDate.now());
+        int daysLeftExpirationDate = (int) ChronoUnit.DAYS.between(LocalDate.now(), getExpiryDate());
+        float expirationPercent = daysSinceCreation * 100 / (daysSinceCreation + daysLeftExpirationDate);
+        return expirationPercent;
+    }
 }
