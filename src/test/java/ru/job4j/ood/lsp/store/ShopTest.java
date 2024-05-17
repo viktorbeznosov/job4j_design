@@ -59,7 +59,7 @@ class ShopTest {
     @Test
     public void whenExpirationPercentMoreThan75ThenMoveToShop() {
         LocalDate createdDate = LocalDate.of(year, month - 1, 1);
-        LocalDate expiredDate = LocalDate.of(year, month, 15);
+        LocalDate expiredDate = LocalDate.of(year, month, date + 1);
         Food orange = new Food("orange", createdDate, expiredDate, 200);
 
         controlQuality.distributeFood(orange);
