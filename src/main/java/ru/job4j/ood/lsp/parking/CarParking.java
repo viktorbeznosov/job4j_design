@@ -16,11 +16,12 @@ public class CarParking implements Parking {
 
     @Override
     public void park(Car car) throws Exception {
-
+        PlaceDistributor distributor = PlaceDistributor.getInstance(car.getType());
+        carPlaceSizesMap = distributor.distribute(car, carPlaceSizesMap);
     }
 
     @Override
     public int getPlaces(CarType type) {
-        return 0;
+        return carPlaceSizesMap.get(type);
     }
 }
