@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import ru.job4j.ood.lsp.store.foodmap.PercentInterval;
 import ru.job4j.ood.lsp.store.foodmap.StoreDistributor;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Calendar;
@@ -65,4 +66,18 @@ class ControlQualityTest {
         assertThat(trash.getProducts()).contains(rancidSausage).doesNotContain(cheese).doesNotContain(apple);
     }
 
+    @Test
+    public void whenResortedTest() throws NoSuchFieldException, IllegalAccessException {
+        LocalDate createdDate = LocalDate.of(year, month, date - 4);
+        LocalDate expiredDate = LocalDate.of(year, month, date - 1);
+        Food cheese = new Food("cheese", createdDate, expiredDate, 300);
+
+        Store shop = storeDistributorMap.get(new PercentInterval(25, 100)).getStore();
+        shop.add(cheese);
+
+        controlQuality.resort();
+        Store trash = storeDistributorMap.get(new PercentInterval(100, 100)).getStore();
+        assertThat(trash.getProducts()).contains(cheese);
+        assertThat(shop.getProducts()).doesNotContain(cheese);
+    }
 }

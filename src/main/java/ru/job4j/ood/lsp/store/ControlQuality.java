@@ -5,10 +5,8 @@ import ru.job4j.ood.lsp.store.foodmap.StoreDistributor;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ControlQuality {
 
@@ -44,6 +42,26 @@ public class ControlQuality {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void resort() {
+        List<Food> products = getProducts();
+        getStores().forEach(e -> e.getProducts().clear());
+        products.forEach(this::distributeFood);
+    }
+
+    private List<Food> getProducts() {
+        return getStores().stream()
+            .map(e -> e.getProducts())
+            .flatMap(e -> e.stream())
+            .collect(Collectors.toList());
+    }
+
+    private List<Store> getStores() {
+        return map.entrySet()
+            .stream()
+            .map(e -> e.getValue().getStore())
+            .collect(Collectors.toList());
     }
 
     public static void main(String[] args) {
